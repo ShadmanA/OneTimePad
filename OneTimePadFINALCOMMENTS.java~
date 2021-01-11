@@ -1,0 +1,72 @@
+/**
+ * Authors: Shadman Ahmed, Alan Piroti
+*  Date: 06/14/18 
+ * Filename: OneTimePadFINAl
+ * Description: This code allows the user to utilise the One Time Pad
+ **/
+
+public class OneTimePadFINALCOMMENTS // Class of the One Time Pad 
+{
+  public static String encrypt(String text, String key)
+  {
+    String encryptedWord = ""; // Initializes the String encryptedWord
+    for (int character=0;character<=(text.length()-1); character+=1){ 
+    encryptedWord+=(char)(((((text.charAt(character)-97)))+((key.charAt(character)-97)))%26+97); //This line of code extracts the character from the text, subtracts 97 from the unicode value so that the value matches that of the one time pad, then adds the text to the key (Key is also subtracted by 97), then remainders the sum by 26(Because there are 26 letters in the alphabet), adds it by 97, and casts it all to a char value to get the new char.  
+    }
+    return encryptedWord; 
+  }
+  
+  public static String decrypt(String text, String key)
+  {
+    String decryptyedWord = "";
+    String decryptionKey = "";
+    for (int character=0; character <=key.length()-1; character+=1)
+    {
+      decryptionKey+=(char)(((26-(key.charAt(character)-97)))%26+97);
+    }
+    return encrypt(text,decryptionKey); 
+  }
+  
+  
+  
+  public static void main (String[]args){ 
+    while(true){
+      System.out.println("Would you like to encrypt(e), decrypt(d) or finish(f)?"); 
+      String UIn= In.getString();
+      if (UIn.equals("e")){ 
+        System.out.println("Please enter the key you will be using.");
+        String key=In.getString(); 
+        System.out.println("Enter the plain text you would to encrypt."); 
+        String text=In.getString(); 
+        String eWord=encrypt(text,key); 
+        System.out.println("Your encrypted word is: " + eWord); 
+      }
+        else if (UIn.equals("f")) 
+      {
+        System.exit(0); 
+        break; 
+      }
+      else if (UIn.equals ("d")){
+        System.out.println("Please enter the key you will be using."); 
+        String key=In.getString(); 
+        System.out.println("Please enter the cipher text to decrypt"); 
+        String text= In.getString(); 
+        String dWord= decrypt(text,key); 
+        System.out.println("Your decrypted word is: " +dWord); 
+      }
+      else{
+        System.out.println("INVALID KEY! Please type in either e for encrypt, d for decrypt,or f to finish"); 
+      }
+      
+      
+      
+    }
+    
+  }
+  
+  
+}
+
+
+
+
